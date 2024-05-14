@@ -21,17 +21,43 @@ function zoom() {
 
 //3) при клике на компонент - менять его фон на синий. При повторном клике на такой - удалять его
 
-function secondClickToDel() {
-  for (let i = 0; i < divs.length; i++) {
-    let isClicked = false;
+function firstColorSecondDel1()
+{
+document.addEventListener('DOMContentLoaded', (e) => {
+    let divs = document.querySelectorAll('div');
+  
+    divs.forEach((div) => {
+      let isClicked = false;
+  
+      div.addEventListener('click', (e) => {
+        e.stopPropagation();
+  
+        if (e.target.style.backgroundColor === 'blue') {
+          e.target.parentNode.removeChild(e.target);
+          return;  
+        }
 
-    divs[i].addEventListener("click", (e) => {
-      if (!isClicked) {
-        e.target.style.backgroundColor = "blue";
+        e.target.style.backgroundColor = 'blue';
         isClicked = true;
+      });
+    });
+  });
+}
+
+
+function firstColorSecondDel2()
+{
+    let clicked = null;
+    document.addEventListener('click', e => {
+    
+      if (e.target.style.backgroundColor !== 'blue') {
+        e.target.style.backgroundColor = 'blue';
+            clicked = e.target;   
       } else {
-        e.target.parentNode.removeChild(e.target);
+        if (e.target === clicked) {
+          e.target.parentNode.removeChild(e.target);
+          clicked = null;
+        }
       }
     });
-  }
 }
